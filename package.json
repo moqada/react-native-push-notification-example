@@ -1,0 +1,59 @@
+{
+  "name": "ExampleApp",
+  "description": "Example App for using external services for Push Notification",
+  "version": "0.0.0",
+  "author": "moqada <moqada@gmail.com>",
+  "dependencies": {
+    "react": "^15.2.1",
+    "react-native": "^0.30.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.5.1",
+    "babel-core": "^6.5.1",
+    "babel-eslint": "^6.0.2",
+    "babel-plugin-espower": "^2.1.1",
+    "babel-preset-power-assert": "^1.0.0",
+    "chokidar-cli": "^1.2.0",
+    "cpx": "^1.3.1",
+    "eslint": "^3.0.1",
+    "eslint-config-moqada": "^16.0.0",
+    "eslint-plugin-babel": "^3.2.0",
+    "eslint-plugin-flow-vars": "^0.4.0",
+    "eslint-plugin-jsdoc": "^2.3.1",
+    "eslint-plugin-react": "5.1.x",
+    "eslint-plugin-react-native": "^1.0.0",
+    "flow-bin": "0.27.0",
+    "isparta": "^4.0.0",
+    "mocha": "^2.4.5",
+    "npm-run-all": "^2.1.0",
+    "power-assert": "^1.2.0",
+    "react-addons-test-utils": "^15.2.1",
+    "react-native-mock": "^0.2.4",
+    "react-shallow-testutils": "^2.0.0"
+  },
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/moqada/react-native-push-notification-example.git"
+  },
+  "scripts": {
+    "clean": "npm-run-all --parallel clean:*",
+    "clean:build": "rm -rf coverage",
+    "clean:test": "rm -rf build",
+    "pretest": "npm run -s clean:test",
+    "rn-cli": "node node_modules/react-native/local-cli/cli.js",
+    "packager": "npm run -s rn-cli -- start",
+    "start": "npm-run-all --parallel packager watch:*",
+    "stop": "npm-run-all stop:*",
+    "stop:flow": "flow stop",
+    "test": "npm-run-all test:*",
+    "test:coverage": "BABEL_ENV=test babel-node $(npm bin)/isparta cover --report text --report html --report lcovonly _mocha -- --timeout=10s --recursive test/**/*spec.js test/**/**/*spec.js",
+    "test:flow": "flow",
+    "test:lint": "eslint --cache {src,test}",
+    "watch": "npm-run-all --parallel watch:*",
+    "watch-check": "npm-run-all --parallel watch:flow watch:lint",
+    "watch:flow": "flow & chokidar src/ -c flow",
+    "watch:lint": "chokidar src/ test/ -c 'npm run -s test:lint'",
+    "watch:test": "BABEL_ENV=test MOCK_API=0 ENABLE_LOGGER=0 mocha --watch --reporter landing --recursive test/**/*spec.js test/**/**/*spec.js"
+  }
+}
